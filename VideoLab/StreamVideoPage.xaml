@@ -1,0 +1,71 @@
+﻿<Page
+    x:Class="VideoLab.StreamVideoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VideoLab"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+	<Grid Background="Black">
+		<MediaElement x:Name="VideoElement" DoubleTapped="VideoElementDoubleTapped" HorizontalAlignment="Center" VerticalAlignment="Center" Tapped="VideoElementTapped"/>
+		
+		<StackPanel Margin="10" RequestedTheme="Dark" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" x:Name="CommandPanel">
+
+			<Slider x:Name="Progress" Value="0.0" ValueChanged="Progress_ValueChanged"/>
+
+			<Grid>
+				<TextBlock x:Name="CurrentProgressPositionLabel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+				<TextBlock x:Name="DurationLabel" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+					<!--playback-->
+					<Button Background="Transparent" Margin="2" Click="ControlElementClicked" Content="&#xE121;" FontFamily="Segoe MDL2 Assets" >
+						<FlyoutBase.AttachedFlyout>
+							<Flyout>
+								<StackPanel Orientation="Vertical" MinWidth="100">
+
+									<TextBlock Text="Playback Speed" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center"/>
+									<Slider x:Name="PlaybackSlider" Maximum="1.5" Minimum="0.1" Value="0.5" StepFrequency="0.01" VerticalAlignment="Bottom" ValueChanged="PlaybackSlider_ValueChanged" ></Slider>
+
+								</StackPanel>
+							</Flyout>
+						</FlyoutBase.AttachedFlyout>
+					</Button>
+
+					<ToggleButton x:Name="PlayButton" 
+								  IsChecked="True" 
+								  Content="&#xE103;" 
+								  FontFamily="Segoe MDL2 Assets"  
+								  Click="PlayStopButtonClick" 
+								  VerticalAlignment="Center" 
+								  HorizontalAlignment="Center"
+								  Background="Transparent"/>
+
+					<!--volume-->
+					<Button Background="Transparent" Margin="2" Click="ControlElementClicked" Content="&#xE15d;" FontFamily="Segoe MDL2 Assets" >
+						<FlyoutBase.AttachedFlyout>
+							<Flyout>
+								<StackPanel Orientation="Vertical" MinWidth="100">
+									<TextBlock Text="Volume" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center"></TextBlock>
+									<Slider x:Name="VolumeSlider" Maximum="1" Minimum="0" Value="1" StepFrequency="0.01" VerticalAlignment="Bottom" ValueChanged="VolumeSlider_ValueChanged" ></Slider>
+								</StackPanel>
+							</Flyout>
+						</FlyoutBase.AttachedFlyout>
+					</Button>
+
+				</StackPanel>
+			</Grid>
+			
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBox x:Name="UrlBox" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBox>
+				<Button Content="&#xE102;" FontFamily="Segoe MDL2 Assets" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"></Button>
+			</Grid>
+		</StackPanel>
+
+	</Grid>
+</Page>
