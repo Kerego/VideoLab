@@ -41,7 +41,12 @@ namespace VideoLab
 				Progress.Maximum = VideoElement.NaturalDuration.TimeSpan.TotalSeconds;
 				DurationLabel.Text = VideoElement.NaturalDuration.TimeSpan.ToString(@"hh\:mm\:ss");
 			};
-			VideoElement.SetSource(await GetSource(), "");
+			IRandomAccessStream source = null;
+			do
+			{
+				source = await GetSource();
+			} while (source == null);
+			VideoElement.SetSource(source, "");
 			Progress.Minimum = 0;
 			Progress.IsThumbToolTipEnabled = false;
 			_timer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(0.2) };
@@ -84,6 +89,8 @@ namespace VideoLab
 			picker.FileTypeFilter.Add(".avi");
 			picker.FileTypeFilter.Add(".mkv");
 			var file = await picker.PickSingleFileAsync();
+			if (file == null)
+				return null;
 			return await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
 		}
 		private void ControlElementClicked(object sender, RoutedEventArgs e)

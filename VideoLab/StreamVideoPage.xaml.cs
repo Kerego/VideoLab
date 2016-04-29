@@ -44,8 +44,15 @@ namespace VideoLab
 			}
 			catch
 			{
-				await Message();
-				return;
+				try
+				{
+					VideoElement.Source = new Uri(UrlBox.Text);
+				}
+				catch
+				{
+					await Message();
+					return;
+				}
 			}
 		}
 
